@@ -171,6 +171,7 @@ class FilmHubsPresentation {
 
     init() {
         this.setupNavigation();
+        this.setupThemeControls();
         this.setupHubsGrid();
         this.setupTugOfWarMatches();
         this.setupComparison();
@@ -192,6 +193,51 @@ class FilmHubsPresentation {
         });
 
         this.updateNavButtons();
+    }
+
+    setupThemeControls() {
+        const select = document.getElementById('themeSelect');
+        if (!select) return;
+
+        // Apply saved theme or system by default
+        const saved = localStorage.getItem('color-scheme') || 'system';
+        this.applyTheme(saved);
+        select.value = saved;
+
+        // Change handler
+        select.addEventListener('change', () => {
+            const value = select.value;
+            if (value === 'system') {
+                localStorage.removeItem('color-scheme');
+            } else {
+                localStorage.setItem('color-scheme', value);
+            }
+            this.applyTheme(value);
+        });
+
+        // Respond to system theme changes when in system mode
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleSystemChange = () => {
+            const current = localStorage.getItem('color-scheme');
+            if (!current) {
+                this.applyTheme('system');
+            }
+        };
+        if (media.addEventListener) {
+            media.addEventListener('change', handleSystemChange);
+        } else if (media.addListener) {
+            // Safari fallback
+            media.addListener(handleSystemChange);
+        }
+    }
+
+    applyTheme(mode) {
+        const root = document.documentElement;
+        if (mode === 'system') {
+            root.removeAttribute('data-color-scheme');
+        } else {
+            root.setAttribute('data-color-scheme', mode);
+        }
     }
 
     setupHubsGrid() {

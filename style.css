@@ -297,6 +297,39 @@
   --color-info-rgb: var(--color-slate-500-rgb);
 }
 
+/* Newspaper, high-contrast sepia theme */
+[data-color-scheme="newspaper"] {
+  /* Base ink RGB for borders and subtle fills */
+  --ink-rgb: 17, 17, 17;
+
+  /* Semantic Color Tokens (Newspaper Mode) */
+  --color-background: #FFF8E7; /* parchment */
+  --color-surface: #FFFDF7; /* off-white surface */
+  --color-text: #111111; /* near-black text */
+  --color-text-secondary: #4A4A4A; /* dark gray for secondary */
+  --color-primary: #111111; /* ink accents */
+  --color-primary-hover: #1F1F1F;
+  --color-primary-active: #000000;
+  --color-secondary: rgba(var(--ink-rgb), 0.07);
+  --color-secondary-hover: rgba(var(--ink-rgb), 0.12);
+  --color-secondary-active: rgba(var(--ink-rgb), 0.16);
+  --color-border: rgba(var(--ink-rgb), 0.22);
+  --color-btn-primary-text: #FFFDF7;
+  --color-card-border: rgba(var(--ink-rgb), 0.14);
+  --color-card-border-inner: rgba(var(--ink-rgb), 0.12);
+  --color-error: #7A0B0B; /* deep red */
+  --color-success: #0B5D53; /* muted teal/ink */
+  --color-warning: #7A4E00; /* umber */
+  --color-info: #3C3C3C;
+  --color-focus-ring: rgba(10, 10, 10, 0.25);
+
+  /* RGB versions for status badges in newspaper mode */
+  --color-success-rgb: 11, 93, 83;
+  --color-error-rgb: 122, 11, 11;
+  --color-warning-rgb: 122, 78, 0;
+  --color-info-rgb: 60, 60, 60;
+}
+
 /* Base styles */
 html {
   font-size: var(--font-size-base);
@@ -742,7 +775,8 @@ select.form-control {
 
 .presentation-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--color-charcoal-800) 0%, var(--color-slate-900) 100%);
+  /* Use semantic background/surface so each theme has proper contrast */
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
   color: var(--color-text);
   overflow: hidden;
 }
@@ -753,7 +787,8 @@ select.form-control {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(var(--color-charcoal-800), 0.95);
+  /* Use solid surface color for consistent contrast across themes */
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
   z-index: 1000;
